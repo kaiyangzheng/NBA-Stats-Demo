@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -30,23 +30,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
 
-    return f'''
-    <h1>NBA Player Stats</h1>
-    <h2>Player: {player}</h2>   
-    <ul>
-        <li><a href='/ALL'>All</a></li>
-        <li><a href='/PTS'>PTS</a></li>
-        <li><a href='/AST'>AST</a></li>
-        <li><a href='/TRB'>TRB</a></li>
-        <li><a href='/FG%'>FG%</a></li>
-        <li><a href='/eFG%'>eFG%</a></li>
-        <li><a href='/FT%'>FT%</a></li>
-        <li><a href='/2P%'>2P%</a></li>
-        <li><a href='/3P%'>3P%</a></li>
-        
-        
-    </ul>
-    '''
+    return render_template("home.html", player = player)
 
 
 @app.route('/ALL')
@@ -56,17 +40,14 @@ def all():
     while i < len(stat_list):
         string += f'<p>{stat_list[i]}: {str(player_row[stat_list[i]].tolist()[0])}</p> '
         i += 1
-    return f'''
-    <a href='/'>Home</a>
-    {string}
+    return f'''<a href='/'>Home</a>
+             {string}
     '''
+
 @app.route('/<string:stat>')
-def pts(stat):
+def stats(stat):
     
-    return f'''
-            
-            <h1 style="text-decoration: underline;">{stats_expansion[stat]}</h1>
-            <h3>{stat}: {player_row[stat].tolist()[0]}</h3>
-            <p>Definition: {stats_description[stat]}</p>
-            <footer><a href='/'>Home</a></footer>
-            '''
+    return render_template("stats.html", stats_expansion = stats_expansion,
+                           stat = stat,
+                           player_row = player_row,
+                           stats_description = stats_description)
