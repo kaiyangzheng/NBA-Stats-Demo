@@ -16,6 +16,15 @@ pd.set_option('display.max_colwidth', None)
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "mysecret"
 
+def getImage(player):
+    player=player.split(' ')
+    first_part=player[1][0:5]
+    first_part=first_part.lower()
+    second_part=player[0][0:2]
+    second_part=second_part.lower()
+    link='https://www.basketball-reference.com/req/202106291/images/players/'+first_part+second_part+'01.jpg'
+    return link
+
 class PlayerForm(FlaskForm):
     player_input=StringField("Player:", validators=[DataRequired()])
     submit=SubmitField("Submit")
@@ -54,9 +63,11 @@ def form():
 #navigation page to different stats
 @app.route('/<string:player>')
 def home(player):
+    img_href=getImage(player)
+    print (img_href)
     player_row=df[df.Player == player]
     stat_list = (player_row.columns.values)
-    return render_template("home.html", player=player)
+    return render_template("home.html", player=player,img_href=img_href)
 
 #display all stats
 @app.route('/<string:player>/ALL')
