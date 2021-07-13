@@ -1,6 +1,7 @@
     <h1>NBA Player Stats</h1>
-    <h2>Player: {{player}}</h2>   
-    <ul>
+    <h2>Player: {{player}}</h2>  
+    <img src={{img_href}} alt="Player Image"> 
+    <ol>
         <li><a href='/{{player}}/ALL'>All</a></li>
         <li><a href='/{{player}}/PTS'>PTS</a></li>
         <li><a href='/{{player}}/AST'>AST</a></li>
@@ -11,5 +12,5 @@
         <li><a href='/{{player}}/2P%'>2P%</a></li>
         <li><a href='/{{player}}/3P%'>3P%</a></li>
         
-    </ul>
+    </ol>
     <a href="{{url_for('form')}}">CHOOSE ANOTHER PLAYER</a>
