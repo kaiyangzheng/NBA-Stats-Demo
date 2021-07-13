@@ -1,11 +1,8 @@
 <h1>NBA Player Stats</h1>
+<h2 style="text-decoration: underline;">Choose a Player</h2>
 <form action='/' method='POST'>
-    <h2 style="text-decoration: underline;">Choose a Player</h2>
-    <label for="player">Player:</label>
-    <input type="text" name="player" value="{{player}}"/>
-    <br>
-    <br>
-    <input type="submit" name="submit_player"/>
-    <br>
-    <a href="{{url_for('home', player=player)}}">SEE STATS</a>
+    {{template_form.hidden_tag()}}
+    <p>{{template_form.player_input.label}} 
+    {{template_form.player_input()}}</p>
+    <p>{{template_form.submit()}}</p>
 </form>
