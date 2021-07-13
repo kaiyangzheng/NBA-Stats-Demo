@@ -1,5 +1,9 @@
-    #all the necessary imports
-from flask import Flask, render_template, request
+#all the necessary imports
+import os
+from flask import Flask, render_template, request, redirect, url_for
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -10,6 +14,11 @@ pd.set_option('display.max_colwidth', None)
 
 #instantiates Flask app
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "mysecret"
+
+class PlayerForm(FlaskForm):
+    player_input=StringField("Player:", validators=[DataRequired()])
+    submit=SubmitField("Submit")
 
 #reads in nba stats data
 player = 'Stephen Curry'
@@ -35,11 +44,11 @@ stat_list = (player_row.columns.values)
 @app.route('/', methods=['GET', 'POST'])
 def form():
     global player
-    if (len(request.form)>0):
-        player=request.form['player']
-    else:
-        player='Stephen Curry'
-    return render_template("form.html", player=player)
+    player_form=PlayerForm()
+    if player_form.validate_on_submit():
+        player=player_form.player_input.data
+        return redirect(url_for("home", player = player))
+    return render_template("form.html", player=player, template_form=player_form)
 
 
 #navigation page to different stats
@@ -49,7 +58,7 @@ def home(player):
     stat_list = (player_row.columns.values)
     return render_template("home.html", player=player)
 
-#display stats
+#display all stats
 @app.route('/<string:player>/ALL')
 def all(player):
     player_row=df[df.Player == player]
@@ -64,7 +73,7 @@ def all(player):
              {string}
              <a href='/{player}'>Home</a>
     '''
-
+#display stats
 @app.route('/<string:player>/<string:stat>')
 def stats(stat, player):
     player_row=df[df.Player == player]
@@ -74,3 +83,8 @@ def stats(stat, player):
                            stat = stat,
                            player_row = player_row,
                            stats_description = stats_description)
+
+if __name__ == '__main__':
+    # Bind to PORT if defined, otherwise default to 5000.
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
