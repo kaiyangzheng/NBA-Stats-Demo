@@ -1,7 +1,28 @@
-    <h1>NBA Player Stats</h1>
-    <h2>Player: {{player}}</h2>  
-    <img src={{img_href}} alt="Player Image"> 
-    <ol>
+    <head>
+        <link rel="stylesheet" href="../static/styles.css">
+    </head>
+    <div class="navbar">
+        <a href="/">Player</a>
+    </div>
+    <body class="home">
+        
+        <h1>NBA Player Stats</h1>
+        <h2>{{player}}</h2>  
+        <img src={{img_href}} alt="Player Image">
+        <div class="description">
+            <p>
+                Team: {{player_row.Tm.tolist()[0]}} |
+                Position: {{player_row.Pos.tolist()[0]}} |
+                Age: {{player_row.Age.tolist()[0]}} |
+                Games Played: {{player_row.G.tolist()[0]}} |
+                Games Started: {{player_row.GS.tolist()[0]}} |
+                Minutes Per Game: {{player_row.MP.tolist()[0]}} 
+                
+            </p>
+        </div>
+    </body>
+     
+    <ul>
         <li><a href='/{{player}}/ALL'>All</a></li>
         <li><a href='/{{player}}/PTS'>PTS</a></li>
         <li><a href='/{{player}}/AST'>AST</a></li>
@@ -12,5 +33,5 @@
         <li><a href='/{{player}}/2P%'>2P%</a></li>
         <li><a href='/{{player}}/3P%'>3P%</a></li>
         
-    </ol>
-    <a href="{{url_for('form')}}">CHOOSE ANOTHER PLAYER</a>
+    </ul>
+    

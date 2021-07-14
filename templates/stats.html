@@ -1,4 +1,13 @@
-            <h1 style="text-decoration: underline;">{{stats_expansion[stat]}}</h1>
-            <h3>{{stat}}: {{player_row[stat].tolist()[0]}}</h3>
-            <p>Definition: {{stats_description[stat]}}</p>
-            <a href="{{url_for('home', player=player)}}">Home</a>
+            <head>
+                <link rel="stylesheet" href="../static/styles.css">
+            </head>
+            <div class="navbar">
+                <a href="{{url_for('home', player=player)}}">Home</a>
+                <a href="/">Player</a>
+            </div>
+            <body class="stats">
+                <h2 style="text-decoration: underline;">{{stats_expansion[stat]}}</h2>
+                <h3>{{stat}}: {{player_row[stat].tolist()[0]}}</h3>
+                <p>{{stats_description[stat]}}</p>
+            </body>
+            
