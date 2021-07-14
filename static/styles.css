@@ -1,0 +1,89 @@
+input, textarea {
+    width: calc(100% - 18px);
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #1c87c9;
+    outline: none;
+    width: 50%;
+}
+form {
+    display: block;
+    padding: 25px;
+    padding-right: 2px;
+    margin: auto;   
+    width: 300px;
+    height:150px;
+    background: lightblue fixed center;
+}
+.submit{
+    margin: 0 auto;
+    box-sizing: border-box;
+    position: relative;
+    left: 55px
+}
+
+*{
+    font-family: Helvetica, Arial, sans-serif;
+
+}
+
+body.form{
+    background-image: url('https://cdn.freebiesupply.com/images/large/2x/nba-logo-transparent.png');
+    background-size: 300px 500px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+h1{
+    text-align: center;
+}
+
+ul{
+    text-align: center;
+}
+
+li{
+    display: inline-block;
+}
+
+
+.navbar{
+    background-color: lightgray;
+    padding: 8px;
+    text-align: left;
+}
+
+img{
+    border: 5px solid black;
+}
+
+body.home{
+    text-align: center;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    border-style: solid;
+    padding: 5px;
+    width: 10px;
+    height: 10px;
+}
+
+a:hover {
+    background-color: darkgrey;
+}
+
+h2{
+    text-decoration: underline;
+}
+
+.description{
+    font-size: 15px;
+    text-align: center;
+}
+
+.stats{
+    text-align: center;
+}
