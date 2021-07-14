@@ -17,6 +17,8 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "mysecret"
 
 def getImage(player):
+    first_part=''
+    second_part=''
     player=player.split(' ')
     first_part=player[1][0:5]
     first_part=first_part.lower()
@@ -30,7 +32,7 @@ class PlayerForm(FlaskForm):
     submit=SubmitField("Submit")
 
 #reads in nba stats data
-player = 'Stephen Curry'
+player = ''
 df=pd.read_csv('NBA_stats.csv')
 string = ''
 #alters the name list to names only
@@ -64,10 +66,9 @@ def form():
 @app.route('/<string:player>')
 def home(player):
     img_href=getImage(player)
-    print (img_href)
     player_row=df[df.Player == player]
     stat_list = (player_row.columns.values)
-    return render_template("home.html", player=player,img_href=img_href)
+    return render_template("home.html", player=player,img_href=img_href, player_row=player_row)
 
 #display all stats
 @app.route('/<string:player>/ALL')
