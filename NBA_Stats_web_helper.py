@@ -22,19 +22,15 @@ stats_expansion={"PTS" : "POINTS PER GAME",
                  }
 
 NBA_data=pd.read_csv('2018-19 NBA Data.csv')
+NBA_data_current=pd.read_csv('NBA_Advanced_Current.csv')
 #print(NBA_data.head())
 
+#NOT VERY GOOD
 def threePravsPER(NBA_data):
-    player_list_PG_SG=NBA_data[(NBA_data.Pos =='PG') | (NBA_data.Pos == 'SG') & (NBA_data.G >= 60)].Player
-    player_list_PG_SG=player_list_PG_SG.tolist()
-    #print(player_list.head())
-
     PER_list_PG_SG=NBA_data[(NBA_data.Pos == 'PG') | (NBA_data.Pos == 'SG') & (NBA_data.G >= 60)].PER
-    PER_list_PG_SG=PER_list_PG_SG.tolist()
     #print(PER_list.head())
 
     threePAr_PG_SG=NBA_data[(NBA_data.Pos == 'PG') | (NBA_data.Pos == 'SG') & (NBA_data.G >= 60)]['3PAr']
-    threePAr_PG_SG=threePAr_PG_SG.tolist()
     #print(threePAr.head())
 
     plt.figure(figsize=(10,10))
@@ -76,8 +72,8 @@ def threePravsPER(NBA_data):
     plt.savefig('plots/3PAr vs. PER for PG and SG 60 Games Min.')
     plt.show()
 
+#BETTER, BUT NOT GOOD ENOUGH
 def TOVpctvsOWS(NBA_data):
-    player_list=NBA_data[(NBA_data.G >= 60)].Player
     TOVpct_list=NBA_data[(NBA_data.G >= 60)].TOV_Pct
     OWS_list=NBA_data[(NBA_data.G >= 60)].OWS
     
@@ -113,4 +109,58 @@ def TOVpctvsOWS(NBA_data):
     plt.savefig('plots/TOV% vs OWS 60 Games Min.')
     plt.show()
 
-TOVpctvsOWS(NBA_data)
+
+#TEMPLATE FOR OTHER PLOTS
+def FTrvsOWS(NBA_data):
+    player_list=NBA_data[(NBA_data.G >= 60)].Player
+    FTr_list=NBA_data[(NBA_data.G >= 60)].FTr
+    OWS_list=NBA_data[(NBA_data.G >= 60)].OWS
+
+    top_FTr = np.quantile(FTr_list, 0.98)
+    top_OWS = np.quantile(OWS_list, 0.98)
+    plt.figure(figsize=(10,10))
+    ax=plt.subplot()
+    minX = np.min(FTr_list)
+    minY = np.min(OWS_list)
+    maxX = np.max(FTr_list)
+    maxY = np.max(OWS_list)
+    plt.xlim(0,0.8)
+    plt.ylim(-2,12)
+    m, b = np.polyfit(FTr_list, OWS_list, 1)
+    plt.plot(FTr_list, m*FTr_list + b, color='red')
+    plt.scatter(FTr_list, OWS_list)
+    plt.title("FTr vs. OWS (60 Games Min.)")
+    plt.xlabel("FTr (Free Throw rate)")
+    plt.ylabel("OWS (Offensive Win Shares)")
+
+    xticks= [0]
+    yticks=[-2]
+    xticklabels=['']
+    for index,value in player_list.items():
+        new_df = NBA_data[(NBA_data.Player==value) & (NBA_data.G >= 60)]
+        player_row = new_df.iloc[0]
+        if (player_row.FTr>=top_FTr or player_row.OWS>=top_OWS):
+            xticks.append(player_row.FTr)
+            yticks.append(player_row.OWS)
+            xticklabels.append(player_row.Player)
+            annotate = '('+str(player_row.FTr) + ',' + str(player_row.OWS)+')'
+            plt.annotate(annotate,xy=(player_row.FTr, player_row.OWS), xytext=(player_row.FTr+0.005, player_row.OWS-0.05))
+    xticks.append(0.8)
+    xticklabels.append('')
+    yticks.append(12)
+
+    i = 1
+    while i < len(xticks)-1:
+        plt.stem(xticks[i], yticks[i], linefmt=('-.'), markerfmt=('rs'), bottom=-2)
+        i += 1
+    plt.legend(['Line of Best Fit','non-98th Percentile OWS or FTR','98th Percentile OWS or FTr'], loc=2)
+    ax.set_xticks(xticks)
+    ax.set_xticklabels(xticklabels,fontsize=7,rotation=20)
+
+    plt.savefig('plots/FTr vs OWS 60 Games Min.')
+    plt.show()
+
+
+
+
+FTrvsOWS(NBA_data)

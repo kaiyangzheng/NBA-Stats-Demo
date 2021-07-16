@@ -33,8 +33,9 @@ class PlayerForm(FlaskForm):
 
 #reads in nba stats data
 player = ''
-df=pd.read_csv('NBA_stats.csv')
 string = ''
+df=pd.read_csv('NBA_stats.csv')
+df_advanced = pd.read_csv('NBA_Advanced_Current')
 #alters the name list to names only
 i = 0
 player_list=[]
