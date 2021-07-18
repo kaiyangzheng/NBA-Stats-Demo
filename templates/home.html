@@ -8,7 +8,7 @@
         
         <h1>NBA Player Stats</h1>
         <h2>{{player}}</h2>  
-        <img src={{img_href}} alt="Player Image">
+        <img class="center" src={{img_href}} alt="Player Image">
         <div class="description">
             <p>
                 Team: {{player_row.Tm.tolist()[0]}} |
@@ -32,6 +32,11 @@
         <li><a href='/{{player}}/FT%'>FT%</a></li>
         <li><a href='/{{player}}/2P%'>2P%</a></li>
         <li><a href='/{{player}}/3P%'>3P%</a></li>
-        
+    </ul>
+    <br>
+    <br>
+    <h2>Data Visualizations</h2>
+    <ul>
+        <li><a href='/{{player}}/FourFactors'>Four Factors</a></li>
     </ul>
     
