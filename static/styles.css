@@ -40,10 +40,18 @@ h1{
 
 ul{
     text-align: center;
+    list-style: inside;    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 li{
+    position: relative;
     display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    right:16px;
 }
 
 
@@ -55,7 +63,11 @@ li{
 
 img{
     border: 5px solid black;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 
 body.home{
     text-align: center;
@@ -87,3 +99,11 @@ h2{
 .stats{
     text-align: center;
 }
+
+.p{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
