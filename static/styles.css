@@ -36,6 +36,7 @@ body.form{
 
 h1{
     text-align: center;
+    text-decoration: underline;
 }
 
 ul{
@@ -52,6 +53,7 @@ li{
     margin-left: auto;
     margin-right: auto;
     right:16px;
+    margin: 0 0 12px 0;
 }
 
 
