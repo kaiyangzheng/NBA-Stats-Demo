@@ -1,0 +1,12 @@
+<head>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body class="form">
+    <h1>Choose a Player to Compare</h1>
+</body>
+<form action='/{{player}}/ComparisonForm' method='POST'>
+    {{template_form.hidden_tag()}}
+    <p class="label">{{template_form.player_input.label}} 
+    {{template_form.player_input()}}</p>
+    <p class="submit">{{template_form.submit()}}</p>
+</form>

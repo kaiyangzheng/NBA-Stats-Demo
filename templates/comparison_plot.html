@@ -1,0 +1,13 @@
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+
+</head>
+<div class="navbar">
+    <a href="{{url_for('home', player=player)}}">Home</a>
+    <a href="/">Player</a>
+    <a href="{{url_for('ComparisonForm', player=player)}}">Compare Another Player</a>
+</div>
+<body class="plots">
+    <img class="center" src="{{url_for('static', filename=href)}}", alt="{{player}} vs {{comparison_player}}", width=800, height=800>
+</body>
+

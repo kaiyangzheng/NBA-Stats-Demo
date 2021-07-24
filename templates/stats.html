@@ -6,8 +6,11 @@
                 <a href="/">Player</a>
             </div>
             <body class="stats">
-                <h2 style="text-decoration: underline;">{{stats_expansion[stat]}}</h2>
+                <h2 style="text-decoration: underline;">{{stat_expansion[stat]}}</h2>
                 <h3>{{stat}}: {{player_row[stat].tolist()[0]}}</h3>
-                <p>{{stats_description[stat]}}</p>
+                <p>Description: {{stat_description[stat]}}</p>
+                <p>Calculation: {{stat_calculation[stat]}}</p>
             </body>
-            
+            <body class = "plots">
+                <img class="center" src="{{url_for('static', filename=player + ' ' + stat + '.png')}}", alt="{{player}} vs {{comparison_player}}", width=800, height=800>
+            </body>
